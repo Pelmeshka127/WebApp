@@ -5,8 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Entity
-@Table(name="products")
+@Table(name = "products")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,21 +15,21 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 
-    @Column(name="id")
+    @Column(name = "id")
     private Long id;
 
-    @Column(name="title")
+    @Column(name = "title")
     private String title;
 
-    @Column(name="description", columnDefinition = "text")
+    @Column(name = "description", columnDefinition = "text")
     private String description;
 
-    @Column(name="price")
+    @Column(name = "price")
     private int price;
 
-    @Column(name="city")
+    @Column(name = "city")
     private String city;
 
-    @Column(name="author")
+    @Column(name = "author")
     private String author;
 }
