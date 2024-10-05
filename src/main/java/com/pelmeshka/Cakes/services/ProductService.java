@@ -1,11 +1,14 @@
 package com.pelmeshka.Cakes.services;
 
+import com.pelmeshka.Cakes.models.Image;
 import com.pelmeshka.Cakes.models.Product;
 import com.pelmeshka.Cakes.repositories.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -20,12 +23,31 @@ public class ProductService {
         } return productRepository.findAll();
     }
 
-    public Product getProductById(Long id) {
+    public Product findProductById(Long id) {
         return productRepository.findById(id).orElse(null);
     }
 
-    public void createProduct(Product product) {
+    public void createProduct(Product product, MultipartFile file1) throws IOException{
+        Image image1;
+        if (file1.getSize() != 0) {
+            image1 = getImageFromFile(file1);
+            image1.setPreviewImage(true);
+            product.addImageToProduct(image1);
+        }
+        log.info("Saving new Product. Title: {}; Author: {}", product.getTitle(), product.getDescription());
+        Product productFromDb = productRepository.save(product);
+        productFromDb.setImagePreviewId(productFromDb.getImages().get(0).getId());
         productRepository.save(product);
+    }
+
+    private Image getImageFromFile(MultipartFile file) throws IOException {
+        Image image = new Image();
+        image.setName(file.getName());
+        image.setOriginalFileName(file.getOriginalFilename());
+        image.setSize(file.getSize());
+        image.setContentType(file.getContentType());
+        image.setBytes(file.getBytes());
+        return image;
     }
 
     public void deleteProduct(Long id) {
