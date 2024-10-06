@@ -28,16 +28,28 @@ public class ProductService {
     }
 
     public void createProduct(Product product, MultipartFile file1) throws IOException{
-        Image image1;
         if (file1.getSize() != 0) {
-            image1 = getImageFromFile(file1);
+            Image image1 = getImageFromFile(file1);
             image1.setPreviewImage(true);
             product.addImageToProduct(image1);
         }
-        log.info("Saving new Product. Title: {}; Author: {}", product.getTitle(), product.getDescription());
+        log.info("Saving new Product. Title: {}; Description: {}", product.getTitle(), product.getDescription());
         Product productFromDb = productRepository.save(product);
-        productFromDb.setImagePreviewId(productFromDb.getImages().get(0).getId());
-        productRepository.save(product);
+        productFromDb.setImagePreviewId(product.getImages().get(0).getId());
+        productRepository.save(productFromDb);
+    }
+
+    public void addImage(Product product, MultipartFile file) throws IOException {
+        if (file.getSize() != 0) {
+            Image image = getImageFromFile(file);
+            if (product.getImages().size() == 0) {
+                image.setPreviewImage(true);
+            }
+            product.addImageToProduct(image);
+        }
+        Product productFromDb = productRepository.save(product);
+        productFromDb.setImagePreviewId(product.getImages().get(0).getId());
+        productRepository.save(productFromDb);
     }
 
     private Image getImageFromFile(MultipartFile file) throws IOException {

@@ -8,7 +8,7 @@
 <body>
 
 <h1>Candy Shop</h1><hr>
-  <img src="/images/main.jpg" height="400px" width="350px"/><br><br>
+  <img src="/sourceimages/main.jpg" height="400px" width="350px"/><br><br>
 <form action="/" method="get">
 Поиск по названию объявления: <input type="text" name="title"><br>
 <input type="submit" value="Поиск"/>

@@ -38,6 +38,12 @@ public class ProductController {
         return "redirect:/";
     }
 
+    @PostMapping("/product/addimage/{id}")
+    public String addImage(@RequestParam(name = "file1")MultipartFile file, @PathVariable Long id) throws IOException {
+        productService.addImage(productService.findProductById(id), file);
+        return "redirect:/product/{id}";
+    }
+
     @PostMapping("/product/delete/{id}")
     public String deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);

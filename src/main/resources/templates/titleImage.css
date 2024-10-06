@@ -1,0 +1,10 @@
+<style>
+    img {
+        width: 300px;
+        height: 400px;
+        object-fit: contain;
+        -o-object-fit: contain;
+        object-position: top;
+        -o-object-position: top;
+    }
+</style>
