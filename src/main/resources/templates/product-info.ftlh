@@ -8,6 +8,9 @@
 <body>
 
   <h1>Candy Shop</h1><hr>
+
+  <a href="/">На главную страницу...</a>
+
   <h4>Подробная информация о товаре</h4>
 
   <#list images as img>
@@ -20,7 +23,7 @@
   <hr>
 
   <form action="/product/addimage/${product.id}" method="post" enctype="multipart/form-data">
-    Фотография: <input type="file" name="file1"/><br><br>
+    Фотография: <input type="file" name="imageFile"/><br><br>
     <input type="submit" value="Добавить фото"/>
   </form><hr>
 

@@ -27,7 +27,7 @@
     Название объявления: <input type="text" name="title"/><br><br>
     Описание объявления: <input type="text" name="description"/><br><br>
     Цена: <input type="number" name="price"/><br><br>
-    Первая фотография: <input type="file" name="file1"/><br><br>
+    Первая фотография: <input type="file" name="imageFile"/><br><br>
     <input type="submit" value="Добавить товар"/>
   </form>
 

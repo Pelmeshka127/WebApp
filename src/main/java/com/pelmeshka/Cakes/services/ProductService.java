@@ -27,37 +27,34 @@ public class ProductService {
         return productRepository.findById(id).orElse(null);
     }
 
-    public void createProduct(Product product, MultipartFile file1) throws IOException{
-        if (file1.getSize() != 0) {
-            Image image1 = getImageFromFile(file1);
-            image1.setPreviewImage(true);
-            product.addImageToProduct(image1);
+    public void createProduct(Product product, MultipartFile file) throws IOException {
+        if (file.getSize() != 0) {
+            Image image = getImageFromFile(file);
+            image.setPreviewImage(true);
+            product.addImageToProduct(image);
         }
-        log.info("Saving new Product. Title: {}; Description: {}", product.getTitle(), product.getDescription());
+
+        log.info("Saving new product. Title: {}; Description: {}", product.getTitle(), product.getDescription());
         Product productFromDb = productRepository.save(product);
-        productFromDb.setImagePreviewId(product.getImages().get(0).getId());
+        productFromDb.setImagePreviewId(productFromDb.getImages().get(0).getId());
         productRepository.save(productFromDb);
     }
 
     public void addImage(Product product, MultipartFile file) throws IOException {
         if (file.getSize() != 0) {
             Image image = getImageFromFile(file);
-            if (product.getImages().size() == 0) {
-                image.setPreviewImage(true);
-            }
             product.addImageToProduct(image);
         }
-        Product productFromDb = productRepository.save(product);
-        productFromDb.setImagePreviewId(product.getImages().get(0).getId());
-        productRepository.save(productFromDb);
+
+        log.info("Saving new image for product. Title: {}; Description: {}", product.getTitle(), product.getDescription());
+        productRepository.save(product);
     }
 
-    private Image getImageFromFile(MultipartFile file) throws IOException {
+    public Image getImageFromFile(MultipartFile file) throws IOException {
         Image image = new Image();
-        image.setName(file.getName());
         image.setOriginalFileName(file.getOriginalFilename());
-        image.setSize(file.getSize());
         image.setContentType(file.getContentType());
+        image.setSize(file.getSize());
         image.setBytes(file.getBytes());
         return image;
     }
