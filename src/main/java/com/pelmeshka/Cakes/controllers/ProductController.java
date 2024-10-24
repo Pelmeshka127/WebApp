@@ -1,6 +1,5 @@
 package com.pelmeshka.Cakes.controllers;
 
-import com.pelmeshka.Cakes.models.Image;
 import com.pelmeshka.Cakes.models.Product;
 import com.pelmeshka.Cakes.services.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +22,7 @@ public class ProductController {
     }
 
     @GetMapping("/product/{id}")
-    public String getProductInfo(@PathVariable Long id, Model model) {
+    public String productInfo(@PathVariable Long id, Model model) {
         Product product = productService.findProductById(id);
         model.addAttribute("product", product);
         model.addAttribute("images", product.getImages());
@@ -32,7 +31,7 @@ public class ProductController {
 
     @PostMapping("/product/create")
     public String createProduct(@RequestParam(name = "imageFile") MultipartFile file, Product product)
-    throws IOException {
+    throws IOException{
         productService.createProduct(product, file);
         return "redirect:/";
     }

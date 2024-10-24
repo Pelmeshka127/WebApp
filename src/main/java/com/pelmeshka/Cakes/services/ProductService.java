@@ -35,8 +35,11 @@ public class ProductService {
         }
 
         log.info("Saving new product. Title: {}; Description: {}", product.getTitle(), product.getDescription());
+
         Product productFromDb = productRepository.save(product);
-        productFromDb.setImagePreviewId(productFromDb.getImages().get(0).getId());
+        if (productFromDb.getImages().size() != 0) {
+            productFromDb.setImagePreviewId(productFromDb.getImages().get(0).getId());
+        }
         productRepository.save(productFromDb);
     }
 

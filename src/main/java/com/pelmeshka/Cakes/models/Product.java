@@ -34,13 +34,6 @@ public class Product {
 
     private Long imagePreviewId;
 
-    private LocalDateTime dateTime;
-
-    @PrePersist
-    private void init() {
-        dateTime = LocalDateTime.now();
-    }
-
     public void addImageToProduct(Image image) {
         image.setProduct(this);
         images.add(image);

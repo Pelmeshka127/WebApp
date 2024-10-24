@@ -7,7 +7,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.ByteArrayInputStream;
@@ -19,7 +18,7 @@ public class ImageController {
     private final ImageRepository imageRepository;
 
     @GetMapping("/images/{id}")
-    private ResponseEntity<?> getImageById(@PathVariable Long id) {
+    private ResponseEntity<?> getImagesById(@PathVariable Long id) {
         Image image = imageRepository.findById(id).orElse(null);
 
         return ResponseEntity.ok()
@@ -29,3 +28,4 @@ public class ImageController {
                 .body(new InputStreamResource(new ByteArrayInputStream(image.getBytes())));
     }
 }
+
