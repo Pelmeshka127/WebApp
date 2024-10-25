@@ -9,16 +9,21 @@
 
 <h1>Candy Shop</h1><hr>
   <img src="/sourceimages/main.jpg" height="400px" width="350px"/><br><br>
+<hr>
 <form action="/" method="get">
-</form>
 <#list products as product>
   <div>
-    <p><b>${product.title}</b> ${product.price} руб. | <a href="/product/${product.id}">Подробнее...</a></p>
+    <p>
+      <b>${product.title}</b> ${product.price} руб. |
+      <a href="/product/${product.id}">Подробнее...</a><br>
+      <img src="/previewImage/${product.id}" height="120px"/><br><br>
+      <hr>
+    </p>
   </div>
 <#else>
 <h3>Товаров нет</h3>
 </#list>
-<hr>
+</form>
 
 <h3>Создать новый товар</h3>
   <form action="/product/create" method="post" enctype="multipart/form-data">

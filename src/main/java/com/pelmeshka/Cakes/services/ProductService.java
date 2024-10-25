@@ -5,6 +5,7 @@ import com.pelmeshka.Cakes.models.Product;
 import com.pelmeshka.Cakes.repositories.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,7 +26,8 @@ public class ProductService {
         return productRepository.findById(id).orElse(null);
     }
 
-    public void createProduct(Product product, MultipartFile file) throws IOException {
+    public void createProduct(Product product, MultipartFile file)
+    throws IOException {
         if (file.getSize() != 0) {
             Image image = getImageFromFile(file);
             image.setPreviewImage(true);
@@ -37,21 +39,25 @@ public class ProductService {
         Product productFromDb = productRepository.save(product);
         if (productFromDb.getImages().size() != 0) {
             productFromDb.setImagePreviewId(productFromDb.getImages().get(0).getId());
+            productRepository.save(productFromDb);
         }
-        productRepository.save(productFromDb);
     }
 
-    public void addImage(Product product, MultipartFile file) throws IOException {
+    public void addImageToProduct(Product product, MultipartFile file)
+    throws IOException {
         if (file.getSize() != 0) {
             Image image = getImageFromFile(file);
             product.addImageToProduct(image);
         }
 
-        log.info("Saving new image for product. Title: {}; Description: {}", product.getTitle(), product.getDescription());
-        productRepository.save(product);
+        Product productFromDb = productRepository.save(product);
+        if (productFromDb.getImages().size() != 0) {
+            productFromDb.setImagePreviewId(productFromDb.getImages().get(0).getId());
+            productRepository.save(productFromDb);
+        }
     }
 
-    public Image getImageFromFile(MultipartFile file) throws IOException {
+    private Image getImageFromFile(MultipartFile file) throws IOException {
         Image image = new Image();
         image.setOriginalFileName(file.getOriginalFilename());
         image.setContentType(file.getContentType());
