@@ -3,6 +3,7 @@
 
 <head>
   <title>Candy Shop</title>
+  <link rel="stylesheet" type="text/css" href="products.css">
 </head>
 
 <body>
@@ -17,13 +18,13 @@
       <b>${product.title}</b> ${product.price} руб. |
       <a href="/product/${product.id}">Подробнее...</a><br>
       <img src="/previewImage/${product.id}" height="120px"/><br><br>
-      <hr>
     </p>
   </div>
 <#else>
 <h3>Товаров нет</h3>
 </#list>
 </form>
+<hr>
 
 <h3>Создать новый товар</h3>
   <form action="/product/create" method="post" enctype="multipart/form-data">

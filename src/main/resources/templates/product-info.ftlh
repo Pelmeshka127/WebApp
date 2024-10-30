@@ -3,6 +3,7 @@
 
 <head>
   <title>Candy Shop</title>
+  <link rel="stylesheet" type="text/css" href="/product-info.css">
 </head>
 
 <body>
@@ -14,7 +15,13 @@
   <h4>Подробная информация о товаре</h4>
 
   <#list images as img>
-    <img src="/images/${img.id}" height="120px"/><br><br>
+    <div>
+    <img src="/images/${img.id}"><br>
+    <form action="/product/deleteImage/${product.id}/${img.id}" method="post">
+    <input type="submit" value="Удалить фото"/>
+    <br><br>
+    </form>
+    </div>
   </#list>
 
   <b>Название товара: </b>${product.title}<br>

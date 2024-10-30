@@ -69,4 +69,13 @@ public class ProductService {
     public void deleteProduct(Long id) {
         productRepository.deleteById(id);
     }
+
+    public void deleteImage(Product product, Long imageId) {
+        for (Image image: product.getImages()) {
+            if (imageId == image.getId()) {
+                product.getImages().remove(image);
+                return;
+            }
+        }
+    }
 }

@@ -2,7 +2,9 @@ package com.pelmeshka.Cakes.controllers;
 
 import com.pelmeshka.Cakes.models.Image;
 import com.pelmeshka.Cakes.models.Product;
+import com.pelmeshka.Cakes.repositories.ImageRepository;
 import com.pelmeshka.Cakes.services.ProductService;
+import jakarta.persistence.Id;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
+    private final ImageRepository imageRepository;
 
     @GetMapping("/")
     public String products(Model model) {
@@ -50,5 +53,14 @@ public class ProductController {
     public String deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
         return "redirect:/";
+    }
+
+    @PostMapping("/product/deleteImage/{productId}/{imageId}")
+    public String deleteImage(@PathVariable Long productId, @PathVariable Long imageId) {
+        System.out.println(productId + " " + imageId);
+        System.out.println(imageRepository.getById(imageId).getId());
+        productService.deleteImage(productService.findProductById(productId), imageId);
+        imageRepository.deleteById(imageId);
+        return "redirect:/product/{productId}";
     }
 }

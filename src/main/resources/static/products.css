@@ -1,0 +1,87 @@
+/* Основные стили для тела страницы */
+body {
+    font-family: Arial, sans-serif; /* Шрифт страницы */
+    background-color: #f8f9fa; /* Светлый фон */
+    color: #333; /* Темный текст */
+    margin: 0;
+    padding: 20px;
+}
+
+/* Заголовок страницы */
+h1 {
+    text-align: center; /* Центрируем заголовок */
+    color: #d35400; /* Оранжевый цвет */
+    font-size: 50px;
+}
+
+/* Разделитель между элементами */
+hr {
+    border: 1px solid #d35400; /* Цвет границы разделителя */
+    margin: 20px 0; /* Отступы сверху и снизу */
+}
+
+/* Стили для ссылки "На главную" */
+a {
+    color: #2980b9;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Стили для формы добавления товара */
+form {
+    background-color: #ffffff; /* Белый фон формы */
+    border: 1px solid #ccc; /* Серый цвет границы */
+    padding: 20px; /* Внутренние отступы */
+    border-radius: 5px; /* Скругленные углы */
+    margin-bottom: 30px; /* Отступ снизу */
+}
+
+/* Поля ввода в форме */
+input[type="text"],
+input[type="number"],
+input[type="file"] {
+    width: 100%; /* Ширина 100% */
+    padding: 10px; /* Внутренние отступы */
+    margin: 10px 0; /* Отступы сверху и снизу */
+    border: 1px solid #ccc; /* Серый цвет границы */
+    border-radius: 4px; /* Скругленные углы */
+}
+
+/* Кнопка отправки */
+input[type="submit"] {
+    background-color: #d35400; /* Оранжевый цвет */
+    color: white; /* Белый текст */
+    border: none; /* Без границы */
+    padding: 10px 15px; /* Внутренние отступы */
+    border-radius: 4px; /* Скругленные углы */
+    cursor: pointer; /* Курсор в виде указателя */
+}
+
+/* Изменение цвета кнопки при наведении */
+input[type="submit"]:hover {
+    background-color: #c0392b; /* Темнее оранжевый */
+}
+
+/* Стили для списка товаров */
+div {
+    border: 1px solid #e0e0e0; /* Светло-серая граница */
+    padding: 15px; /* Внутренние отступы */
+    margin-bottom: 15px; /* Отступ снизу */
+    border-radius: 5px; /* Скругленные углы */
+    background-color: #fafafa; /* Светлый фон для товара */
+}
+
+/* Заголовок для секции товаров */
+h3 {
+    color: #333; /* Темный цвет */
+}
+
+/* Стили для изображения товаров */
+img {
+    max-width: 100%; /* Максимальная ширина 100% */
+    width: 30%
+    height: 30%; /* Авто высота для сохранения пропорций */
+}
