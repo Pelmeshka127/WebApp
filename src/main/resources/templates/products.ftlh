@@ -8,7 +8,7 @@
 
 <body>
 
-<h1>Candy Shop</h1><hr>
+<h1>Candy Shop | <a href="/login">Войти</a></h1><hr>
   <img src="/sourceimages/main.jpg" height="400px" width="350px"/><br><br>
 <hr>
 <form action="/" method="get">
