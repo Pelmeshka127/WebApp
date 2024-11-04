@@ -20,21 +20,20 @@ public class SecurityConfig {
     @Bean
     protected SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/registration").permitAll()
-                        .requestMatchers("/product/**", "/image/**")
-                        .hasAnyAuthority("ROLE_ADMIN","ROLE_USER")
-                        .anyRequest().authenticated()
-                )
-                .formLogin((form) -> form
-                        .loginPage("/login")
-                        .permitAll()
-                )
-                .logout((logout) -> logout.permitAll());
+            .authorizeHttpRequests((requests) -> requests
+                .requestMatchers("/", "/product/**", "/images/**", "/registration")
+                .permitAll()
+                .anyRequest().authenticated()
+            )
+            .formLogin((form) -> form
+                .loginPage("/login")
+                .defaultSuccessUrl("/", true)
+                .permitAll()
+            )
+            .logout((logout) -> logout.permitAll());
 
         return http.build();
     }
-
 
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailService)

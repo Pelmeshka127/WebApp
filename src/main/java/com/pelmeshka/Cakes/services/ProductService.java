@@ -2,14 +2,16 @@ package com.pelmeshka.Cakes.services;
 
 import com.pelmeshka.Cakes.models.Image;
 import com.pelmeshka.Cakes.models.Product;
+import com.pelmeshka.Cakes.models.User;
 import com.pelmeshka.Cakes.repositories.ProductRepository;
+import com.pelmeshka.Cakes.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 
 @Service
@@ -17,6 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductService {
     private final ProductRepository productRepository;
+    private final UserRepository userRepository;
 
     public List<Product> getProducts() {
         return productRepository.findAll();
@@ -26,8 +29,10 @@ public class ProductService {
         return productRepository.findById(id).orElse(null);
     }
 
-    public void createProduct(Product product, MultipartFile file)
+    public void createProduct(Principal principal, Product product, MultipartFile file)
     throws IOException {
+        product.setUser(getUserByPrincipal(principal));
+
         if (file.getSize() != 0) {
             Image image = getImageFromFile(file);
             image.setPreviewImage(true);
@@ -41,6 +46,13 @@ public class ProductService {
             productFromDb.setImagePreviewId(productFromDb.getImages().get(0).getId());
             productRepository.save(productFromDb);
         }
+    }
+
+    public User getUserByPrincipal(Principal principal) {
+        if (principal.getName() == null) {
+            return new User();
+        }
+        return userRepository.findByEmail(principal.getName());
     }
 
     public void addImageToProduct(Product product, MultipartFile file)

@@ -20,9 +20,9 @@ public class UserService {
             return false;
         }
         user.setActive(true);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.getRoles().add(Role.ROLE_USER);
-        log.info("Creating new User with email: {}", user.getEmail());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        log.info("Saving new user with email: {}.", user.getEmail());
         userRepository.save(user);
         return true;
     }

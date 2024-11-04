@@ -31,10 +31,12 @@
 
   <form action="/product/addimage/${product.id}" method="post" enctype="multipart/form-data">
     Фотография: <input type="file" name="imageFile"/><br><br>
+    <input type="hidden" name="_csrf" value="${_csrf.token}">
     <input type="submit" value="Добавить фото"/>
   </form><hr>
 
   <form action="/product/delete/${product.id}" method="post">
+    <input type="hidden" name="_csrf" value="${_csrf.token}">
     <input type="submit" value="Удалить товар"/>
   </form>
 

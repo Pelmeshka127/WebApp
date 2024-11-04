@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,8 +23,9 @@ public class ProductController {
     private final ImageRepository imageRepository;
 
     @GetMapping("/")
-    public String products(Model model) {
+    public String products(Principal principal, Model model) {
         model.addAttribute("products", productService.getProducts());
+        model.addAttribute("user", productService.getUserByPrincipal(principal));
         return "products";
     }
 
@@ -36,9 +38,9 @@ public class ProductController {
     }
 
     @PostMapping("/product/create")
-    public String createProduct(@RequestParam(name = "imageFile") MultipartFile file, Product product)
+    public String createProduct(@RequestParam(name = "imageFile") MultipartFile file, Product product, Principal principal)
     throws IOException {
-        productService.createProduct(product, file);
+        productService.createProduct(principal, product, file);
         return "redirect:/";
     }
 

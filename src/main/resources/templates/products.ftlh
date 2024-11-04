@@ -8,8 +8,18 @@
 
 <body>
 
-<h1>Candy Shop | <a href="/login">Войти</a></h1><hr>
+<h1>Candy Shop</h1><hr>
   <img src="/sourceimages/main.jpg" height="400px" width="350px"/><br><br>
+<hr>
+<#if user.email??>
+  <h3>Имя пользователя: <i>${user.name}</i></h3>
+  <form action="/logout" method="post">
+  <input type="hidden" name="_csrf" value="${_csrf.token}">
+  <input type="submit" value="Выйти"/>
+  </form>
+<#else>
+  <a href="/login">Войти</a></h1>
+</#if>
 <hr>
 <form action="/" method="get">
 <#list products as product>
@@ -24,16 +34,19 @@
 <h3>Товаров нет</h3>
 </#list>
 </form>
-<hr>
 
+<#if user.email??>
+<hr>
 <h3>Создать новый товар</h3>
   <form action="/product/create" method="post" enctype="multipart/form-data">
     Название объявления: <input type="text" name="title"/><br><br>
     Описание объявления: <input type="text" name="description"/><br><br>
     Цена: <input type="number" name="price"/><br><br>
     Первая фотография: <input type="file" name="imageFile"/><br><br>
+    <input type="hidden" name="_csrf" value="${_csrf.token}">
     <input type="submit" value="Добавить товар"/>
   </form>
+</#if>
 
 </body>
 
