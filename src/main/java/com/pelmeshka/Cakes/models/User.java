@@ -22,7 +22,7 @@ public class User implements UserDetails {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "proneNumber")
+    @Column(name = "phoneNumber")
     private String phoneNumber;
 
     @Column(name = "name")
@@ -40,7 +40,7 @@ public class User implements UserDetails {
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role",
-    joinColumns = @JoinColumn(name = "user_id"))
+            joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles = new HashSet<>();
 
@@ -53,6 +53,10 @@ public class User implements UserDetails {
     @PrePersist
     private void init() {
         dateOfCreated = LocalDateTime.now();
+    }
+
+    public boolean isAdmin() {
+        return roles.contains(Role.ROLE_ADMIN);
     }
 
     @Override

@@ -1,12 +1,12 @@
 package com.pelmeshka.Cakes.controllers;
 
 import com.pelmeshka.Cakes.models.Image;
-import com.pelmeshka.Cakes.models.Product;
 import com.pelmeshka.Cakes.repositories.ImageRepository;
 import com.pelmeshka.Cakes.services.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.ByteArrayInputStream;
@@ -19,7 +19,7 @@ public class ImageController {
     private final ProductService productService;
 
     @GetMapping("/images/{id}")
-    public ResponseEntity<?> getImageById(@PathVariable Long id) {
+    public ResponseEntity<?> getImagesById(@PathVariable Long id) {
         Image image = imageRepository.findById(id).orElse(null);
 
         return ResponseEntity.ok()

@@ -4,12 +4,15 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "images")
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
+@RequiredArgsConstructor
 public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,14 +22,14 @@ public class Image {
     @Column(name = "originalFileName")
     private String originalFileName;
 
-    @Column(name = "size")
-    private Long size;
-
     @Column(name = "contentType")
     private String contentType;
 
     @Column(name = "isPreviewImage")
     private boolean isPreviewImage;
+
+    @Column(name = "size")
+    private Long size;
 
     @Lob
     @Column(name = "bytes")

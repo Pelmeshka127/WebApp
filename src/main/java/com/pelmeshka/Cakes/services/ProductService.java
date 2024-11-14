@@ -64,7 +64,9 @@ public class ProductService {
 
         Product productFromDb = productRepository.save(product);
         if (productFromDb.getImages().size() != 0) {
-            productFromDb.setImagePreviewId(productFromDb.getImages().get(0).getId());
+            Image previewImage = productFromDb.getImages().get(0);
+            previewImage.setPreviewImage(true);
+            productFromDb.setImagePreviewId(previewImage.getId());
             productRepository.save(productFromDb);
         }
     }
@@ -82,9 +84,18 @@ public class ProductService {
         productRepository.deleteById(id);
     }
 
+    public void deleteProductFromUser(User user, Long productId) {
+        for (Product product: user.getProducts()) {
+            if (productId.equals(product.getId())) {
+                user.getProducts().remove(product);
+                return;
+            }
+        }
+    }
+
     public void deleteImage(Product product, Long imageId) {
         for (Image image: product.getImages()) {
-            if (imageId == image.getId()) {
+            if (imageId.equals(image.getId())) {
                 product.getImages().remove(image);
                 return;
             }
