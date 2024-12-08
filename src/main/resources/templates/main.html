@@ -2,14 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Music App</title>
+    <link rel="stylesheet" href="/main.css">
 </head>
 <body>
-<h1>Welcome to the Music App</h1>
+<h1>Welcome to the Music App</h1><hr>
 
 <h2>Upload Music</h2>
-<a href="/upload">Upload a new song</a>
 
-<h2>Available Music</h2>
+<div class="links-container">
+    <a href="/upload">Upload a new song</a>
+</div><hr>
+
+<h2>Available Music</h2><hr>
 <ul>
     <th:block th:each="song : ${songs}">
         <li>
@@ -18,8 +22,12 @@
             <audio controls>
                 <source th:src="@{/song/{id}(id=${song.id})}" type="audio/mpeg">
                 Your browser does not support the audio element.
-            </audio>
+            </audio><br>
+            <div class="links-container">
+                <a th:href="@{/songinfo/{id}(id=${song.id})}">Song information</a>
+            </div>
         </li>
+        <hr>
     </th:block>
 </ul>
 </body>

@@ -25,11 +25,11 @@ public class Song {
     @Column(name = "artist")
     private String artist;
 
+    @Column(name = "size")
+    private Long size;
+
     @Column(name = "contentType")
     private String contentType;
-
-    @Column(name = "size")
-    private long size;
 
     @Lob
     @Column(name = "bytes")

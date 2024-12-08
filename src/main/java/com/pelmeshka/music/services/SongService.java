@@ -14,22 +14,26 @@ import java.util.List;
 public class SongService {
     private final SongRepository songRepository;
 
-    public Song uploadSong(MultipartFile file, String title, String artist) throws IOException {
-        Song music = new Song();
-        music.setTitle(title);
-        music.setArtist(artist);
-        music.setContentType(file.getContentType());
-        music.setSize(file.getSize());
-        music.setOriginalFileName(file.getOriginalFilename());
-        music.setBytes(file.getBytes());
-        return songRepository.save(music);
+    public List<Song> getAllSongs() {
+        return songRepository.findAll();
     }
 
-    public Song getSong(Long id) {
+    public Song getSongById(Long id) {
         return songRepository.findById(id).orElse(null);
     }
 
-    public List<Song> getAllSongs() {
-        return songRepository.findAll();
+    public void addSong(MultipartFile file, String artist, String title) throws IOException {
+        Song song = new Song();
+        song.setArtist(artist);
+        song.setTitle(title);
+        song.setOriginalFileName(file.getOriginalFilename());
+        song.setContentType(file.getContentType());
+        song.setSize(file.getSize());
+        song.setBytes(file.getBytes());
+        songRepository.save(song);
+    }
+
+    public void deleteSongById(Long id) {
+        songRepository.deleteById(id);
     }
 }
