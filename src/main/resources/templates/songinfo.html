@@ -3,19 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Song Info</title>
-    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
 <h1>Song Information</h1>
 <a href="/">Back to home page</a> <br>
     <strong th:text="${song.title}">Song Title</strong> -
-    <span th:text="${song.artist}">Artist Name</span><br>
+    <span th:text="${song.artist.name}">Artist Name</span><br>
     <audio controls>
-        <source th:src="@{/song/{id}(id=${song.id})}" type="audio/mpeg">
+        <source th:src="@{/song/play/{id}(id=${song.id})}" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio><br>
     <a th:href="@{/song/download/{id}(id=${song.id})}" th:download="${song.originalFileName}">Download</a><br>
-    <form th:action="@{/delete/{id}(id=${song.id})}" method="post">
+    <form th:action="@{/delete/song/{id}(id=${song.id})}" method="post">
         <button type="submit">Delete song</button>
     </form><br>
 </body>

@@ -22,17 +22,6 @@ public class SongService {
         return songRepository.findById(id).orElse(null);
     }
 
-    public void addSong(MultipartFile file, String artist, String title) throws IOException {
-        Song song = new Song();
-        song.setArtist(artist);
-        song.setTitle(title);
-        song.setOriginalFileName(file.getOriginalFilename());
-        song.setContentType(file.getContentType());
-        song.setSize(file.getSize());
-        song.setBytes(file.getBytes());
-        songRepository.save(song);
-    }
-
     public void deleteSongById(Long id) {
         songRepository.deleteById(id);
     }

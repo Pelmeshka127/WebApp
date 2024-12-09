@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "song")
+@Table(name = "songs")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,8 +22,8 @@ public class Song {
     @Column(name = "originalFileName")
     private String originalFileName;
 
-    @Column(name = "artist")
-    private String artist;
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    private Artist artist;
 
     @Column(name = "size")
     private Long size;

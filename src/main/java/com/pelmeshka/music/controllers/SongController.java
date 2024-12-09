@@ -1,6 +1,8 @@
 package com.pelmeshka.music.controllers;
 
+import com.pelmeshka.music.models.Artist;
 import com.pelmeshka.music.models.Song;
+import com.pelmeshka.music.services.ArtistService;
 import com.pelmeshka.music.services.SongService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -13,17 +15,18 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.ByteArrayInputStream;
 import org.springframework.core.io.InputStreamResource;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 
 @Controller
 @RequiredArgsConstructor
 public class SongController {
     private final SongService songService;
+    private final ArtistService artistService;
 
     @GetMapping("/")
     public String main(Model model) {
         model.addAttribute("songs", songService.getAllSongs());
+        model.addAttribute("artists", artistService.getArtists());
         return "main";
     }
 
@@ -33,26 +36,16 @@ public class SongController {
         return "songinfo";
     }
 
-    @GetMapping("/upload")
-    public String uploadPage(Model model) {
-        return "upload";
-    }
-
-    @PostMapping("/upload")
-    public String addMusic(@RequestParam(name = "file") MultipartFile file,
-                           @RequestParam(name = "artist") String artist,
-                           @RequestParam(name = "title") String title) throws IOException {
-        songService.addSong(file, artist, title);
-        return "redirect:/";
-    }
-
-    @PostMapping("/delete/{id}")
+    @PostMapping("/delete/song/{id}")
     public String deleteMusic(@PathVariable Long id) {
+        Song song = songService.getSongById(id);
+        Artist artist = song.getArtist();
+        artistService.deleteSongFromArtist(artist, id);
         songService.deleteSongById(id);
         return "redirect:/";
     }
 
-    @GetMapping("/song/{id}")
+    @GetMapping("/song/play/{id}")
     public ResponseEntity<?> playSong(@PathVariable Long id) {
         Song song = songService.getSongById(id);
         if (song != null) {

@@ -2,29 +2,25 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Music App</title>
-    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/main.css?v=2">
 </head>
 <body>
 <h1>Welcome to the Music App</h1><hr>
 
 <h2>Upload Music</h2>
 
+<h2>Add Artist</h2>
 <div class="links-container">
-    <a href="/upload">Upload a new song</a>
+    <a href="/create/artist">Add new artist</a>
 </div><hr>
 
-<h2>Available Music</h2><hr>
+<h2>Artists</h2>
 <ul>
-    <th:block th:each="song : ${songs}">
+    <th:block th:each="artist : ${artists}">
         <li>
-            <p th:text="${song.title}">Song Title</p>
-            <p th:text="${song.artist}">Artist</p>
-            <audio controls>
-                <source th:src="@{/song/{id}(id=${song.id})}" type="audio/mpeg">
-                Your browser does not support the audio element.
-            </audio><br>
+            <p th:text="${artist.name}">Artist Name</p>
             <div class="links-container">
-                <a th:href="@{/songinfo/{id}(id=${song.id})}">Song information</a>
+                <a th:href="@{/artistinfo/{id}(id=${artist.id})}">Artist information</a>
             </div>
         </li>
         <hr>
