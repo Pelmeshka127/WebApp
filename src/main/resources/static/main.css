@@ -1,105 +1,48 @@
-/* Общие стили */
 body {
     font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f9;
+}
+
+h1, h2 {
+    text-align: center;
     color: #333;
-    line-height: 1.6;
 }
 
 h1 {
-    text-align: center;
+    margin-top: 50px;
+    font-size: 36px;
     color: #4CAF50;
-    margin: 20px 0;
 }
 
 h2 {
-    text-align: center;
+    margin-top: 30px;
+    font-size: 28px;
     color: #333;
-    margin: 20px 0;
 }
 
-/* Стили для ссылок */
 a {
-    color: #1b60cc;
+    font-size: 18px;
+    color: #2196F3;
     text-decoration: none;
-    font-weight: bold;
+    display: block;
+    margin: 10px auto;
+    width: max-content;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #e3f2fd;
+    transition: background-color 0.3s ease;
 }
 
 a:hover {
-    text-decoration: underline;
+    background-color: #BBDEFB;
+    color: #0D47A1;
 }
 
-/* Стили для форм */
-form {
-    max-width: 600px;
-    margin: 20px auto;
-    background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-input[type="text"],
-input[type="file"],
-button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-}
-
-button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #45a049;
-}
-
-/* Стили для списка песен */
-ul {
-    list-style: none;
-    padding: 0;
-}
-
-li {
-    margin: 20px auto;
-    padding: 20px;
-    max-width: 600px;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-li p {
-    margin: 5px 0;
-    font-size: 16px;
-    color: #555;
-}
-
-/* Стили для аудиоплеера */
-audio {
-    width: 100%;
-    margin-top: 10px;
-}
-
-/* Кнопки */
-button[type="submit"] {
-    width: auto;
-    padding: 10px 20px;
-}
-
-.links-container {
-    display: flex;
-    flex-direction: column; /* Располагает ссылки вертикально */
-    align-items: center; /* Центрирует ссылки по горизонтали */
-    gap: 10px; /* Добавляет расстояние между ссылками */
+hr {
+    border: 0;
+    height: 1px;
+    background-color: #ddd;
+    margin: 20px 0;
 }

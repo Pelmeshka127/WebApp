@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Song List</title>
+</head>
+<body>
+<h2>Upload Music</h2>
+<a href="/song/add">Add new song</a><hr>
+
+<h2>Songs</h2>
+<ul>
+    <th:block th:each="song : ${songs}">
+        <li>
+            <p th:text="${song.title}">Song title</p>
+            <p th:text="${song.artist.name}">Artist</p>
+            <a th:href="@{/songinfo/{id}(id=${song.id})}">Song information</a>
+            <audio controls>
+                <source th:src="@{/song/play/{id}(id=${song.id})}" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio><br>
+        </li>
+        <hr>
+    </th:block>
+</ul>
+<a href="/">Back to Home Page</a>
+</body>
+</html>

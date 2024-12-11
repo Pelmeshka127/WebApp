@@ -1,8 +1,6 @@
 package com.pelmeshka.music.controllers;
 
-import com.pelmeshka.music.models.Artist;
 import com.pelmeshka.music.services.ArtistService;
-import com.pelmeshka.music.services.SongService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,15 +17,21 @@ import java.io.IOException;
 public class ArtistController {
     private final ArtistService artistService;
 
-    @GetMapping("/create/artist")
+    @GetMapping("/artistslist")
+    public String getArtistsList(Model model) {
+        model.addAttribute("artists", artistService.getArtists());
+        return "/artistslist";
+    }
+
+    @GetMapping("/artist/create")
     public String addArtistPage() {
         return "addartist";
     }
 
-    @PostMapping("/create/artist")
+    @PostMapping("/artist/create")
     public String addArtist(@RequestParam(name = "name") String name) {
         artistService.addArtist(name);
-        return "redirect:/";
+        return "redirect:/artistslist";
     }
 
     @GetMapping("/artistinfo/{id}")
@@ -37,7 +41,7 @@ public class ArtistController {
         return "artistinfo";
     }
 
-    @PostMapping("/upload/song/{id}")
+    @PostMapping("/song/upload/{id}")
     public String addMusic( @PathVariable Long id,
                             @RequestParam(name = "file") MultipartFile file,
                             @RequestParam(name = "title") String title)
@@ -46,9 +50,9 @@ public class ArtistController {
         return "redirect:/artistinfo/{id}";
     }
 
-    @PostMapping("/delete/artist")
+    @PostMapping("/artist/delete/{id}")
     public String deleteArtist(@PathVariable Long id) {
         artistService.deleteArtist(id);
-        return "redirect:/";
+        return "redirect:/artistslist";
     }
 }

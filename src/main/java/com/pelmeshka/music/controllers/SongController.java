@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import java.io.ByteArrayInputStream;
 import org.springframework.core.io.InputStreamResource;
 
@@ -30,19 +29,24 @@ public class SongController {
         return "main";
     }
 
+    @GetMapping("/songslist")
+    public String getSongsList(Model model) {
+        model.addAttribute("songs", songService.getAllSongs());
+        return "/songslist";
+    }
+
     @GetMapping("/songinfo/{id}")
     public String getSongInfo(@PathVariable Long id, Model model) {
         model.addAttribute("song", songService.getSongById(id));
         return "songinfo";
     }
 
-    @PostMapping("/delete/song/{id}")
-    public String deleteMusic(@PathVariable Long id) {
-        Song song = songService.getSongById(id);
-        Artist artist = song.getArtist();
-        artistService.deleteSongFromArtist(artist, id);
-        songService.deleteSongById(id);
-        return "redirect:/";
+    @PostMapping("/song/delete/{artistId}/{songId}")
+    public String deleteMusic(@PathVariable Long artistId, @PathVariable Long songId) {
+        Artist artist = artistService.getArtistById(artistId);
+        artist.getSongs().remove(songService.getSongById(songId));
+        songService.deleteSongById(songId);
+        return "redirect:/artistinfo/{artistId}";
     }
 
     @GetMapping("/song/play/{id}")
