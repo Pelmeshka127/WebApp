@@ -16,7 +16,7 @@
     <!--    </div>-->
 </div>
 <h2>Upload New Song</h2>
-<form th:action="@{/song/upload/{id}(id=${artist.id})}" method="post" enctype="multipart/form-data">
+<form th:action="@{/song/upload/toartist/{id}(id=${artist.id})}" method="post" enctype="multipart/form-data">
     <label for="title">Title:</label>
     <input type="text" name="title" id="title" required><br><br>
 

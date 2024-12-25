@@ -22,6 +22,10 @@ public class SongService {
         return songRepository.findById(id).orElse(null);
     }
 
+    public void addSong(MultipartFile file, String title) {
+
+    }
+
     public void deleteSongById(Long id) {
         songRepository.deleteById(id);
     }

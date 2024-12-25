@@ -41,10 +41,10 @@ public class ArtistController {
         return "artistinfo";
     }
 
-    @PostMapping("/song/upload/{id}")
-    public String addMusic( @PathVariable Long id,
-                            @RequestParam(name = "file") MultipartFile file,
-                            @RequestParam(name = "title") String title)
+    @PostMapping("/song/upload/toartist/{id}")
+    public String addSongToArtist(  @PathVariable Long id,
+                                    @RequestParam(name = "file") MultipartFile file,
+                                    @RequestParam(name = "title") String title)
     throws IOException {
         artistService.addSongToArtist(file, title, id);
         return "redirect:/artistinfo/{id}";

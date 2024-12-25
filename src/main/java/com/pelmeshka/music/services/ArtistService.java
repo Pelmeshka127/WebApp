@@ -48,13 +48,4 @@ public class ArtistService {
         artist.addSong(song);
         artistRepository.save(artist);
     }
-
-    public void deleteSongFromArtist(Artist artist, Long songId) {
-        for (int i = 0; i < artist.getSongs().size(); i++) {
-            if (songId.equals(artist.getSongs().get(i).getId())) {
-                artist.getSongs().remove(artist.getSongs().get(i));
-                return;
-            }
-        }
-    }
 }

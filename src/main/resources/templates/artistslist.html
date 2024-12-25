@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="/artistslist.css?">
 <head>
     <meta charset="UTF-8">
     <title>Artist List</title>
@@ -15,7 +16,6 @@
             <p th:text="${artist.name}">Artist Name</p>
             <a th:href="@{/artistinfo/{id}(id=${artist.id})}">Artist information</a>
         </li>
-        <hr>
     </th:block>
 </ul>
 <a href="/">Back to Home Page</a>

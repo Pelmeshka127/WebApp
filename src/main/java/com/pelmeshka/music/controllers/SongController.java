@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.io.ByteArrayInputStream;
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
@@ -41,6 +42,18 @@ public class SongController {
         return "songinfo";
     }
 
+    @GetMapping("/song/upload")
+    public String uploadSongPage() {
+        return "songupload";
+    }
+
+//    @PostMapping("/song/upload")
+//    public String uploadSong(@RequestParam(name = "file") MultipartFile file,
+//                             @RequestParam(name = "title") String title)
+//    throws IOException {
+//        return "redirect:/";
+//    }
+
     @PostMapping("/song/delete/{artistId}/{songId}")
     public String deleteMusic(@PathVariable Long artistId, @PathVariable Long songId) {
         Artist artist = artistService.getArtistById(artistId);
@@ -63,9 +76,12 @@ public class SongController {
     @GetMapping("/song/download/{id}")
     public ResponseEntity<?> downloadSong(@PathVariable Long id) throws IOException {
         Song song = songService.getSongById(id);
-        return ResponseEntity.ok()
-                .contentType(MediaType.valueOf(song.getContentType()))
-                .contentLength(song.getSize())
-                .body(new InputStreamResource(new ByteArrayInputStream(song.getBytes())));
+        if (song != null) {
+            return ResponseEntity.ok()
+                    .contentType(MediaType.valueOf(song.getContentType()))
+                    .contentLength(song.getSize())
+                    .body(new InputStreamResource(new ByteArrayInputStream(song.getBytes())));
+        }
+        return ResponseEntity.notFound().build();
     }
 }
