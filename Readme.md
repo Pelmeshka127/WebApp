@@ -1,6 +1,5 @@
 # Music App V2.0
 
-![image1](images/main.jpg)
 ## Введение
 В данном проекте я реализовал свой сайт с музыкой технологий Spring Boot и PostgreSQL.
 Программа написана в среде разработке IntelliJ IDEA CE.
