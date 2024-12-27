@@ -25,6 +25,7 @@ public class ArtistController {
 
     @GetMapping("/artist/create")
     public String addArtistPage() {
+        System.out.println("Adding new artist!!!!");
         return "addartist";
     }
 

@@ -32,13 +32,13 @@ public class User implements UserDetails {
     @Column(name = "password", length = 1000)
     private String password;
 
+    @Column(name = "dateOfCreated")
+    private LocalDateTime dateOfCreated;
+
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles = new HashSet<>();
-
-    @Column(name = "dateOfCreated")
-    private LocalDateTime dateOfCreated;
 
     @PrePersist
     private void init() {

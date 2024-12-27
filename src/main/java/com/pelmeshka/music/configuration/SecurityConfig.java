@@ -2,8 +2,10 @@ package com.pelmeshka.music.configuration;
 
 import com.pelmeshka.music.services.CustomUserDetailsService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -15,7 +17,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @AllArgsConstructor
 public class SecurityConfig {
-    private final CustomUserDetailsService userDetailService;
+    private final CustomUserDetailsService userDetailsService;
 
     @Bean
     protected SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -23,13 +25,14 @@ public class SecurityConfig {
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/registration", "/login")
                         .permitAll()
-                        .requestMatchers("/product/**", "/image/**")
-                        .hasAnyAuthority("ROLE_ADMIN","ROLE_USER")
+                        .requestMatchers("/")
+                        .hasAnyAuthority("ROLE_USER","ROLE_ADMIN")
                         .anyRequest()
                         .authenticated()
                 )
                 .formLogin((form) -> form
                         .loginPage("/login")
+                        .defaultSuccessUrl("/", true)
                         .permitAll()
                 )
                 .logout((logout) -> logout.permitAll());
@@ -39,8 +42,8 @@ public class SecurityConfig {
 
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-            .userDetailsService(userDetailService)
-            .passwordEncoder(passwordEncoder());
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder());
     }
 
     @Bean
