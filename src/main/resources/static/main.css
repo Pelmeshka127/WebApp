@@ -47,3 +47,27 @@ hr {
     background-color: #ddd;
     margin: 20px 0;
 }
+
+form input[type="submit"] {
+    font-size: 18px;
+    color: #fff;
+    background-color: #f44336;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: max-content;
+    display: block;
+    margin: 20px auto;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+form input[type="submit"]:hover {
+    background-color: #d32f2f;
+    transform: translateY(-2px);
+}
+
+form input[type="submit"]:active {
+    background-color: #c62828;
+    transform: translateY(0);
+}

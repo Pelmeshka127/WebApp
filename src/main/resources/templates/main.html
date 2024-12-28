@@ -13,5 +13,10 @@
 <h2>Songs</h2>
 <a href="/songslist">Songs list</a><hr>
 
+<form th:action="@{/logout}" method="post">
+    <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+    <input type="submit" value="Выйти">
+</form>
+
 </body>
 </html>
